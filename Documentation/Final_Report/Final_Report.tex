@@ -1,0 +1,385 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{caption, subcaption}
+\usepackage{array}
+\usepackage{graphicx}
+\graphicspath{{Images/}}
+\usepackage{wrapfig}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{enumitem}
+\geometry{a4paper,total={180mm,250mm},left=20mm,top=30mm}
+\usepackage{tikz}
+\usepackage{xurl}
+\usetikzlibrary{calc}
+\thispagestyle{empty}
+\usepackage{colortbl}
+\usepackage{multicol}
+\usepackage{float}
+\setlist[description]{style=nextline}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+
+\begin{document}
+\begin{titlepage}
+
+\begin{tikzpicture}[remember picture,overlay]
+   \draw[line width = 2pt] ($(current page.north west) + (0.5in,-0.5in)$)  rectangle ($(current page.south east) +  (-0.5in,0.5in)$);
+\end{tikzpicture}
+
+
+%first page started:
+\vspace{-0.5in}
+\begin{center}
+\textbf{\Large{Department of Electronic \& Telecommunication Engineering \\University of Moratuwa}}\\
+\vspace{0.5in}
+
+\includegraphics[width=0.5\textwidth]{uomlogo.png}\\
+\vspace{0.5in}
+
+\textbf{\Large{EN2091 - Laboratory Practice and Projects}}\\
+\vspace{0.45in}
+\textbf{\Large{Linear Power Supply Unit}}\\
+\vspace{0.1in}
+\textbf{\Large{Project Report}}\\
+\vspace{0.1in}
+\textbf{Team 02}\\
+\end{center}
+
+%\vspace{0.5in}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+%\begin{tabular}{|l|l|l|}
+\begin{tabular}{|m{45mm}| m{15mm}|m{80mm}|} 
+\hline
+\textbf{Name} & \textbf{Index No.} & \textbf{Contribution} \\ \hline
+AHAMED M.B.S.A. & 200014B & Enclosure Design, Assembling the circuit, Testing the circuit \\ \hline
+FERNANDOPULLE N.K. & 200172F & Design the circuit, troubleshoot the implementations, PCB design, Assembling the   circuit, Soldering Components, Testing the circuit \\ \hline
+MADHUSHAN R.M.S. & 200363R & Design the circuit, PCB design, Assembling the circuit, Testing the circuit  \\ \hline
+RANAVIRAJA   R.W.H.M.T.A & 200520X & Managing   the Project Report, Assembling the circuit, Testing the circuit, Creating the   datasheet of the product. \\ \hline
+\end{tabular}
+%\vspace{0.5in}
+\end{center}
+
+
+\begin{center}
+    \large{27th February 2023.}
+\end{center}
+
+\end{titlepage}
+
+%\maketitle
+\tableofcontents
+
+\pagebreak
+
+\begin{multicols}{2}
+\begin{abstract}
+Linear Power Supply is used to drive a load under constant voltage/current conditions. We have to do design a 10V linear power supply with a maximum current rating of 10A. First, a step-down transformer is used to reduce the 230V input line voltage to a 15V(rms) AC voltage. After that GBPC3506W Bridge rectifier rectify the voltage and 10mF capacitor smooth the output. After the smoothing stage, two transistors (MJ4502 and BC547A as Sziklai pair), 10V Zener diode, 150Ω resistor and diode are used to regulate the voltage. And there is a circuit to limit the current to a maximum of 10A.
+
+There is a short circuit protection. For the proper heat dissipation, we have used a heat sink with the MJ4502 transistor and the bridge rectifier. Final design contains a single layer PCB covered by 3D printed enclosure with 12V DC fan.
+\end{abstract}
+
+%\newpage
+
+\section{Introduction}
+The main function of the linear power supply is to drive a load under constant voltage/current condition. Under this project we design a 10V linear power supply with a maximum current rating of 10A with the voltage regulator from scratch to drive a high-power load (100W) from 230V input voltage. 
+
+The final circuit is made of two circuits. They are main regulation circuit and protection circuit. 
+
+
+\begin{flushleft}
+The main circuit design contains five stages:
+\end{flushleft}
+\vspace{-0.35in}
+\begin{itemize}
+  \item Step down transformer \vspace{-0.1in}
+  \item Full-wave rectification \vspace{-0.1in}
+  \item Smoothing stage \vspace{-0.1in}
+  \item Regulating stage \vspace{-0.1in}
+  \item Current limiting stage
+\end{itemize}
+
+\begin{flushleft}
+Protection circuit for:
+\end{flushleft}
+\vspace{-0.35in}
+\begin{itemize}
+  \item Overload protection \vspace{-0.1in}
+  \item Short circuit protection
+\end{itemize}
+Handling high current while maintaining low current error was a challenge in this project.
+
+%\newpage
+\vspace{0.5in}
+\section{Methodology}
+\subsection{Step-Down Transformer }
+In this project a voltage ratio of 230:15 step-down transformer is used to get the desirable voltage level which can be tolerated by the electronic components in the next stage. Thus, when connected to the household power supply, the transformer will provide a 15V rms input voltage to the rectifier which has a peak voltage value of $\sqrt{2}*15 = 21.21$ V.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{stepdownTransformer}
+    \caption{Step-Down Transformer}
+    \label{fig:Transformer}
+\end{figure}
+
+\subsection{Full-wave rectification }
+After step-down the voltage level to a desirable level, next step is to rectify the AC voltage by using any appropriate method. The AC voltage contain a positive half cycle and a negative half cycle. In this stage it covert to an AC voltage which has a single polarity. There are so many methods to achieve that result. But in this project Wheatstone bridge rectifier is used. Because it is the most common and simplest method to rectify the sinusoidal AC voltage. 
+
+The Wheatstone bridge rectifier allows to flow the output current in a single direction regardless of the polarity of the input voltage applied. \\
+
+\begin{figure}[H]
+ \centering
+    \includegraphics[width=\linewidth]{fullwaveRectification}
+    \caption{Full-wave rectification}
+    \label{fig:Rectification}
+\end{figure}
+
+\begin{equation}
+    V_out=|V_{in}|-2V_d
+\end{equation}
+\begin{equation}
+    V_rev=|V_in|-V_d
+\end{equation}
+%\clearpage
+%\vspace{0.5in}
+%\begin{singlespace}
+\begin{itemize}
+  \item $V_{out}$-The output voltage
+  \vspace{-0.1in}
+  \item $V_{rev}$-Reversed-biased voltage
+  \vspace{-0.1in}
+  \item $V_{in}$  -The input voltage
+ \vspace{-0.1in}
+  \item $V_d$   -The nominal voltage drop across a forward-biased diode \vspace{-0.1in}
+\end{itemize}
+%\end{singlespace}
+
+According to the equation the peak inverse voltage (PIV) can be calculated as,
+\begin{equation}
+    (V_{rev})_{max} =21.21 - 0.7 = 20.51V
+\end{equation}
+Therefore, we selected a commercially available bridge rectifier chip which can support 10A current and greater than the calculated PIV value. It is GBPC3506W bridge rectifier which can support up to 35A maximum average output current and having1000V maximum PIV value.
+
+\subsection{Smoothing stage}
+The output after the rectification process is a single polarity voltage with large voltage variation. The next step to make it a DC voltage is the smoothing process. Capacitors are used to reduce the voltage variation of the rectified voltage. It smooths the rectified output voltage and outputs the small ripple voltage close to the DC output voltage. 
+
+For a better smoothing effect, the capacitor’s discharging rate should be small. For that, RC time constant can be increased to get a small discharging rate. But Resistance (R) can’t be controlled by us. Therefore, we have to do increase the capacitance of the capacitor. 
+
+However, as Capacitance increases, the transient current drawn to charge the capacitor in the first voltage cycle becomes larger and may damage the diodes in the rectifier bridge. Therefore, the smoothing capacitor has to be selected carefully so that the surge current is within a tolerable limit and the level of smoothing is also sufficient.
+
+In this figure\ref{fig:Smoothing}, a 10mF capacitor is used for smoothing process. But there is a small ripple. In next step we use voltage regulation to remove that ripple.
+
+%\includegraphics{smoothedWave.png}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{smoothedWave}
+    \caption{Smoothed Output}
+    \label{fig:Smoothing}
+\end{figure}
+
+%\newpage
+\vspace{0.5in}
+\subsection{Voltage Regulation stage}
+In this stage, the ripple in the smoothened voltage is removed and output a constant DC voltage. \\
+
+In our project we mainly use two transistors, a resistor, a diode and a Zener diode. These two transistors (MJ4502 and BC547A) are connected as Sziklai pair. It acts as a single transistor and has a high current gain than an individual transistor. 
+
+\begin{wrapfigure}{l}{0.3\textwidth} 
+    \centering
+    \includegraphics[width=0.3\textwidth]{RegulatingCircuit}
+    \caption{Regulating Circuit}
+    \label{fig:RegulatingCircuit}
+\end{wrapfigure}
+
+\vspace{0.1in}
+The D1 is a Zener diode with the breakdown voltage ($V_Z$) of 10V.The base current to Q3 transistor is given through the R1 resistor and in active region the voltage difference between BE ($V_{BE,Q3}$) is 0.7. At that time the volage difference between D4 diode ($V_{D4}$) is also 0.7V and resulting voltage across LM is,
+\begin{equation}
+    V_{LM} = V_Z + V_{BE,Q3} -V_{D4} =10V
+\end{equation}
+%\vspace{0.005in}
+
+$V_{LM}$ is nearly a fixed voltage because the $V_Z$ and $V_{BE,Q3}$ voltages are mostly independent of their respective currents. 
+
+We have used variable resistors across LM to use in current limiting circuit. 
+
+The current through the R1 resistor is low in value because the base current of the transistor and the zener current of the zener diode flows through it is low in value. Therefore, the power dissipation over the R1, D1, D4 and Q3 devices are small and has maximum power efficiency.\\
+
+%\vspace{0.2in}
+Selecting appropriate devices:\vspace{-0.1in}
+\begin{itemize}
+  \item Voltage drop across R1 resistor = $21.21 - 9.3 = 11.91$V \vspace{-0.1in}
+\item Maximum current through R1 resistor = maximum zener regulator current = 0.091A \vspace{-0.1in}
+\item Minimum Resistance of R1 = $11.91/0.091=130 \Omega$ \vspace{-0.1in}
+\end{itemize}
+
+According to that calculation, we have selected 150$\Omega$ resistor for R1 resistor. R4 and R5 variable resistors are the part of the current limiting circuit.
+
+%\newpage
+
+\subsection{Current limiting stage}
+This project is to design a 10V power supply with 10A high current. If there flows a high current than 10A it will cause damages to the load and the circuit components. Therefore, we have to limit the current to 10A.
+
+\begin{figure}[H]
+    \centering
+\includegraphics[width=\linewidth]{Images/CurrentLimiting.png}
+    \caption{Current Limiting Circuit}
+    \label{fig:ProtectionCircuit}
+\end{figure}
+
+
+
+For that we have designed a circuit with an op-amp, relay and MOSFET. The op-amp act as a comparator in this circuit. We have given fixed voltage to the positive terminal of the op-amp through volage divider and have given same voltage to the negative terminal of the op-amp through a diode. And the output of the op-amp is connected to the MOSFET to increase the output current to sufficient current which can operate the relay. We design to disconnect the circuit through the R1 resistor. So, we connect one terminal of the resistor to the relay and output voltage of the rectifier to the other pin of the relay. When circuit is on the relay on and flow current through the R1 resistor. If there is a high current greater than 10A the voltage across the D3 diode is increasing because it is not an ideal diode. Then the output voltage difference of the op-amp becomes negative and prevents the flow of the current through the relay and disconnect the R1 resistor. Then the circuit will be disconnected. That is the process of the current limiting circuit in this project. To power up the op-amp we use an external 12v regulator. D6 is the flyback diode.
+
+\vspace{0.2in}
+\subsection{Circuit Protection}
+This is a circuit which can provide a 10V DC voltage and 10A high voltage. So, there should be a circuit to protect the components in the design and the load from the overload and short circuit situations. For that we have to create a safety mechanism for this power supply unit as short circuit protection and overload protection. Actually the current limiting circuit which discussed in the section 2.5 will limit the maximum output current to 10A and act as both the short circuit and overload protection.
+
+\section{PCB Design }
+This project contains high current paths. So, the PCB should have the ability to carry 10A high current. But due to the path resistances and high-power components in the circuit, the PCB can easily get heated up. And also, some thermally sensitive components can behave unexpectedly. There are few solutions for this issue. But for our design the most suitable method is to place those high-power components and high current flowing paths outside the board.
+
+In our design we attached the Q1 transistor (MJ4502) and bridge rectifier to a heatsink and placed outside the PCB with a 12V fan.
+
+To minimize the heating of the PCB we designed short, thick and wide paths as possible.
+
+The PCB is designed using the software Altium Designer.
+
+\section{Enclosure Design }
+In this design 10V voltage and maximum 10A current is drawn from the circuit. Therefore, this provides maximum 100W output power. Because of the high currents the circuit gets heated faster. A heat sink is used to dissipate the heat of transistors that are heated to high values. As a solution for requirements, we designed an enclosure which can accommodate a DC fan, heat sink and the circuit. To design this, we used the solidworks software.
+
+
+\section{Discussion}
+After designing the circuit we checked it using the Multisim software. After that we implemented it on a dot board and checked again. In that stage we also got the results what we expected. After that we designed our PCB and created it. We checked all connections and other considerable factors. Then connected to the transformer and measured the output voltage for the no load condition. And we got measurements for several loads. We also checked the functionality of overload protection. 
+
+We observed that (figure \ref{fig:OutputVsResistanceLoad}) there is only slight 0.1V change in the output, while changing the load from no load condition to $100\Omega$. After that we  further reduce that load up until $1.5\Omega$  and we observed 0.143V voltage drop. The rate of the voltage drop from $100\Omega$ to $1.5\Omega$ is greater than the voltage drop from no load condition to $100\Omega$ and the total output voltage drop is 0.243V. This  difference exists, because we assumed that the current is negligible across zener diode while flowing higher current. But as an overall performance this product gives the required output. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Images/OutputVsLoad.png}
+    \caption{Output Voltage vs. Resistance of the Load}
+    \label{fig:OutputVsResistanceLoad}
+\end{figure}
+
+
+\section{Acknowledgement }
+Our gratitude goes to the project supervisors and the advisory board who provided the necessary guidance and motivation to complete this project.
+
+We highly appreciate the Department of Electrical and Telecommunication Engineering laboratory staff for setting up and providing the essential testing equipment as well as facilitating us in working in the lab without any second thoughts.
+
+Finally, we thank our colleagues from the Department of Electrical and Telecommunication Engineering for giving us a helping hand during the past weeks without any hesitation.
+
+\newpage
+\section{Appendices}
+\subsection{Simulation circuit (Multisim) }
+
+\begin{figure}[H]
+    \centering
+\includegraphics[width=\linewidth]{Images/Simulation.png}
+    \caption{Simulation Circuit}
+    \label{fig:Simulation}
+\end{figure}
+
+
+\subsection{PCB Schematic }
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Images/PCBschematic.png}
+    \caption{PCB Schematic}
+    \label{fig:PCBschematic}
+\end{figure}
+
+\subsection{PCB Layout}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Images/PCBlayout.png}
+    \caption{PCB Layout}
+    \label{fig:PCBlayout}
+\end{figure}
+
+\subsection{Enclosure Design}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Images/EnclosureDesign.png}
+    \caption{Enclosure Design}
+    \label{fig:EnclosureDesign}
+\end{figure}
+
+\end{multicols}{2}
+
+\newpage
+\section{Data Sheet of Linear Power Supply}
+\vspace{0.3in}
+\begin{center}
+    \LARGE \textbf{\underline {Data Sheet of Linear Power Supply}}
+\end{center}
+
+\subsubsection*{\large \textbf{Product}}
+\includegraphics[width=0.7\linewidth]{Images/Product.png}
+
+ \subsection*{\Large \textbf{Specification - Linear Power Supply}}
+\vspace{0.1in}
+\begin{itemize}
+    \item \textbf{AC Input}
+            \begin{itemize}
+                \item 230V
+                \item Frequency Range 50Hz
+            \end{itemize}
+    \item   \textbf{AC Input}
+            \begin{itemize}
+                \item 230V
+                \item Frequency Range 50Hz
+            \end{itemize}
+    \item   \textbf{DC Output}
+            \begin{itemize}
+                \item 9.5V-10.5V 
+                \item Current Rating -10A
+            \end{itemize}
+    \item \textbf{Over Voltage Protection}
+            \begin{itemize}
+                \item Automatic Voltage Limit
+            \end{itemize}
+    \item \textbf{Overload/Short Circuit Protection}
+            \begin{itemize}
+                \item Automatic Current Limit
+            \end{itemize}
+\end{itemize}
+
+ \subsection*{\Large \textbf{Characteristic curves}}
+
+\subsubsection*{\large \textbf{A) Output Voltage vs. Resistance of the Load}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Images/OutputVsLoad.png}
+    \caption{Output Voltage vs. Resistance of the Load}
+    \label{fig:OutputVsLoad}
+\end{figure}
+
+\subsubsection*{\large \textbf{B)Output Power and Input Power vs the Load Resistance }}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Images/OutputInputPower.png}
+    \caption{Output Power and Input Power vs the Load Resistance}
+    \label{fig:OutputInputPower}
+\end{figure}
+
+\subsubsection*{\large \textbf{C) Efficiency vs. Output Load}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Images/EfficiencyVsOutputLoad.png}
+    \caption{Efficiency vs. Output Load}
+    \label{fig:EfficiencyVsOutputLoad}
+\end{figure}
+
+
+
+
+
+\end{document}
