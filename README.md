@@ -40,7 +40,7 @@ The methodology of the project involves the following key stages:
 
 ## NI Multisim Simulation
 
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/NIMultisim Simulation.png"></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/NIMultisim Simulation.png"></p>
 <br>
 
 ## PCB Design
@@ -48,23 +48,23 @@ The methodology of the project involves the following key stages:
 The PCB design is optimized for the specific requirements of the Analog Linear Power Supply. The layout ensures proper heat dissipation through the use of a heat sink with the MJ4502 transistor and the bridge rectifier.
 
 ## Schemetic of the PCB
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/Schematic.jpg" ></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/Schematic.jpg" ></p>
 <br>
 
 ## PCB Layout
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/PCB Layout.png" ></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/PCB Layout.png" ></p>
 <br>
 
 ## PCB Design
 
 Top Layer                  |  Bottom Layer               
 :-------------------------:|:-------------------------:
-<img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/Top PCB Design.png" width="500" height="400"> | <img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/Bottom PCB Design.png" width="500" height="400"> 
+<img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/Top PCB Design.png" width="500" height="400"> | <img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/Bottom PCB Design.png" width="500" height="400"> 
 <br>
 
 ## PCB Design
 
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/PCB Design.png" ></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/PCB Design.png" ></p>
 <br>
 
 
@@ -74,14 +74,14 @@ The enclosure for the Analog Linear Power Supply is designed to accommodate the 
 
 ## Enclosure Hand Sketch Design
 
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/Enclosure Design.jpg" ></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/Enclosure Design.jpg" ></p>
 <br>
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/Product Design.jpg" ></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/Product Design.jpg" ></p>
 <br>
 
 ## Bill of Material
 
-<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Solar-Wifi-Router/blob/master/Images/Bill_of_Matrials.png" ></p>
+<p align="center"><img src="https://github.com/MB-Shihab-Aaqil-Ahamed/Analog-Linear-Power-Supply/blob/master/Images/Bill_of_Matrials.png" ></p>
 <br>
 
 ## Acknowledgement
